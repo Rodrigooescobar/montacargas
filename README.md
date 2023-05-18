@@ -1,5 +1,5 @@
 # Primer parcial de SPD
-![imagen de arduino y tinkercad](tinkercad-arduino.png "arduino en tinkercad")
+![imagen de arduino y tinkercad](![tinkercad-arduino](https://github.com/rodrigo9988/markdown-test/assets/122792902/10ba9ede-65e8-4abe-a831-e895184fa799) "arduino en tinkercad")
 <!-- UL-->
 ## Alumno:
 ---
@@ -23,3 +23,5 @@ codigo
 ## Link del video funcionando
 * [Video](link)
 
+![proyecto](https://github.com/rodrigo9988/markdown-test/assets/122792902/d8392863-aa4b-4b49-8cb9-9f345d36f455)
+![tinkercad-arduino](https://github.com/rodrigo9988/markdown-test/assets/122792902/10ba9ede-65e8-4abe-a831-e895184fa799)
