@@ -14,6 +14,7 @@
 Proyecto de montacargas de 3 pisos, con 3 botones, uno para subir de piso, uno para bajar y otro para denerlo, se puede pararlo cuando el usuario lo desee, su funcion es que no permite subir y/o bajar de piso, ya sea en movimiento o en estado de reposo, contiene 2 led indicadores, uno verde que enciende cuando el montacargas esta en marcha y otro led rojo que indica cuando esta detenido
 ## Funciones principales
 ---
+Funciones para subir de piso, para bajar y otro detenerlo, estas funciones usan un contador para subir y bajar de piso, donde le dan la indicacion a un switch para mostrar por el display de 7 segmentos que numero debe mostrar.
 <!-- Bloque de codigos -->
 ```c++
 void subir_piso()//funcion para subir de piso
@@ -56,6 +57,51 @@ void detener_montacargas()//funcion para dentener el montacargas
     encender_led(LED_PARADA, HIGH, LED_MARCHA, LOW);
   }while(digitalRead(PULSADOR_PARADA) == 1);//sale del do while al precionar el boton de parada
 }
+```
+Funcion del display donde es comandado a traves del swtich como se explico antes.
+
+```c++
+void encenderDisplay ()// funcion que muestra el nro de piso por el display
+{  
+  digitalWrite (A, LOW);
+  digitalWrite (B, LOW);
+  digitalWrite (C, LOW);
+  digitalWrite (D, LOW);
+  digitalWrite (E, LOW);
+  digitalWrite (F, LOW);
+  digitalWrite (G, LOW);
+  
+  switch (nro_piso)
+    {
+      case 0:
+      	digitalWrite (A, HIGH);
+        digitalWrite (B, HIGH);
+        digitalWrite (C, HIGH);
+        digitalWrite (D, HIGH);
+        digitalWrite (E, HIGH);
+        digitalWrite (F, HIGH);
+        break;
+      case 1:
+        digitalWrite (B, HIGH);
+        digitalWrite (C, HIGH);
+        break;
+      case 2:
+        digitalWrite (A, HIGH);
+        digitalWrite (B, HIGH);
+        digitalWrite (D, HIGH);
+        digitalWrite (E, HIGH);
+        digitalWrite (G, HIGH);
+        break;
+      case 3:
+        digitalWrite (A, HIGH);
+        digitalWrite (B, HIGH);
+        digitalWrite (C, HIGH);
+        digitalWrite (D, HIGH);
+        digitalWrite (G, HIGH);
+        break;
+    }
+}
+
 ```
 ## Link del proyecto
 ---
