@@ -1,5 +1,5 @@
 # Primer parcial de SPD
-![imagen de arduino y tinkercad]((https://github.com/rodrigo9988/markdown-test/assets/122792902/40815568-a57e-4ef5-a446-26c8b0b43dae)
+![imagen de arduino y tinkercad](tinkercad-arduino.png "arduino en tinkercad")
 <!-- UL-->
 ## Alumno:
 ---
