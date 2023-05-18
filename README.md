@@ -61,7 +61,7 @@ void detener_montacargas()//funcion para dentener el montacargas
 Funcion del display donde es comandado a traves del swtich como se explico antes.
 
 ```c++
-void encenderDisplay ()// funcion que muestra el nro de piso por el display
+void mostrar_numero_por_display ()// funcion que muestra el nro de piso por el display
 {  
   digitalWrite (A, LOW);
   digitalWrite (B, LOW);
