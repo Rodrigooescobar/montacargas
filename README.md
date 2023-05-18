@@ -14,7 +14,7 @@
 Proyecto de montacargas de 3 pisos, con 3 botones, uno para subir de piso, uno para bajar y otro para denerlo, se puede pararlo cuando el usuario lo desee, su funcion es que no permite subir y/o bajar de piso, ya sea en movimiento o en estado de reposo, contiene 2 led indicadores, uno verde que enciende cuando el montacargas esta en marcha y otro led rojo que indica cuando esta detenido
 ## Funciones principales
 ---
-Funciones para subir de piso, para bajar y otro detenerlo, estas funciones usan un contador para subir y bajar de piso, donde le dan la indicacion a un switch para mostrar por el display de 7 segmentos que numero debe mostrar.
+Funciones para subir de piso, para bajar y otro para detenerlo, estas funciones usan un contador para subir y bajar de piso, donde le dan la indicacion a un switch para mostrar por el display de 7 segmentos el numero de piso que debe mostrar.
 <!-- Bloque de codigos -->
 ```c++
 void subir_piso()//funcion para subir de piso
