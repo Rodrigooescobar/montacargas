@@ -5,63 +5,76 @@
 ---
 * Rodrigo Omar Escobar
 
-## Proyecto Montacargas de 3 pisos
+## Proyecto Montacargas de 9 pisos
 ---
 ![imagen del proyecyo](proyecto.png "proyecto hecho en tinkercad")
 ![diagrama del proyecyo](diagrama.png "diagrama hecho en tinkercad")
 ## Descripcion
 ---
-Proyecto de montacargas de 3 pisos, con 3 botones, uno para subir de piso, uno para bajar y otro para denerlo, se puede pararlo cuando el usuario lo desee, su funcion es que no permite subir y/o bajar de piso, ya sea en movimiento o en estado de reposo, contiene 2 led indicadores, uno verde que enciende cuando el montacargas esta en marcha y otro led rojo que indica cuando esta detenido
+Proyecto de montacargas de 9 pisos con 3 botones, uno para subir de piso, uno para bajar y otro para denerlo, se puede parar cuando el usuario lo desee, ya sea en movimiento o en estado de reposo, contiene 2 led indicadores, uno verde que enciende cuando el montacargas esta en marcha y otro led rojo que indica cuando esta detenido
 ## Funciones principales
 ---
-Funciones para subir de piso, para bajar y otro para detenerlo, estas funciones usan un contador para subir y bajar de piso, donde le dan la indicacion a un switch para mostrar por el display de 7 segmentos el numero de piso que debe mostrar.
+Funciones para subir de piso, para bajar y otro detener, estas funciones usan un contador el movimiento, que indican el numero del piso del montacargas, a traves de un  switch se da las instrucciones al display de 7 segmentos que numero debe mostrar.
 <!-- Bloque de codigos -->
 ```c++
-void subir_piso()//funcion para subir de piso
+void subir_piso()//Funcion para subir de piso
 {
-  nro_piso++;//sube un piso
-  encender_led(LED_MARCHA, HIGH, LED_PARADA, LOW);//enciende led marcha y apaga el de parada
-  for (int tiempo_actual = 0; tiempo_actual < 3000; tiempo_actual += 10)//recorre por 3000ms
+  nro_piso++;//Sube un piso
+  
+  for (int tiempo_actual = 0; tiempo_actual < 3000; tiempo_actual += 10)//Recorre por 3000ms
   {
-    if (digitalRead(PULSADOR_PARADA) == 0)// boton de para durante la marcha
+    encender_led(LED_MARCHA, HIGH, LED_PARADA, LOW);//Enciende led marcha y apaga el de parada
+    if (digitalRead (PULSADOR_PARADA) == 0 && digitalRead (PULSADOR_PARADA) != pulsador_anterior)// Boton de para durante la marcha
     {
-      delay(100);
-      detener_montacargas();//funcion para dentener la marcha que esta en proceso 
+      detener_montacargas();//Funcion para dentener la marcha que esta en proceso 
     }
-    Serial.println("SUBIENDO");//dentro del for
-  }//fuera del for
-  encender_led(LED_PARADA, HIGH, LED_MARCHA, LOW);//completa el piso y enciede el led que esta en parada
+      else if (digitalRead (PULSADOR_PARADA) == 1)
+  	{
+    	pulsador_anterior = 1;
+  	}
+    Serial.println("SUBIENDO");//Dentro del for
+  }//Fuera del for
+  encender_led(LED_PARADA, HIGH, LED_MARCHA, LOW);//Completa el piso y enciede el led que esta en parada
 }
   
-void bajar_piso()//funcion para bajar de piso
+void bajar_piso()//Funcion para bajar de piso
 {
-  nro_piso--; //le resta 1 al contador de piso
-  encender_led(LED_MARCHA, HIGH, LED_PARADA, LOW);//enciende led marcha y apaga el de parada
+  nro_piso--; //Le resta 1 al contador de piso
+  
   for (int tiempo_actual = 0; tiempo_actual < 3000; tiempo_actual += 10)
   {
-    if (digitalRead(PULSADOR_PARADA) == 0)//recorre por 3000ms
+    encender_led(LED_MARCHA, HIGH, LED_PARADA, LOW);//Enciende led marcha y apaga el de parada
+    if (digitalRead (PULSADOR_PARADA) == 0 && digitalRead (PULSADOR_PARADA) != pulsador_anterior)// Boton de para durante la marcha
     {
-      delay(100);
-      detener_montacargas();
+      detener_montacargas();//Funcion para dentener la marcha que esta en proceso 
     }
+      else if (digitalRead (PULSADOR_PARADA) == 1)
+  	{
+    	pulsador_anterior = 1;
+  	}
     Serial.println("BAJANDO");
   }//fuera del for
-  encender_led(LED_PARADA, HIGH, LED_MARCHA, LOW);//enciende el led de parada al completar la marcha
+  encender_led(LED_PARADA, HIGH, LED_MARCHA, LOW);//Enciende el led de parada al completar la marcha
 }
 
-void detener_montacargas()//funcion para dentener el montacargas
+void detener_montacargas()//Funcion para dentener el montacargas
 {
-  do{
-    delay(150);
+  while (digitalRead (PULSADOR_PARADA) == 0)// Entra al primer while hasta que el boton vuelva a su estado de reposo
+  {
+    Serial.println("PARADA");
+  }
+    while (digitalRead (PULSADOR_PARADA) == 1) // Sale de la funcion al precionar el boton
+  {
     Serial.println("PARADA");
     encender_led(LED_PARADA, HIGH, LED_MARCHA, LOW);
-  }while(digitalRead(PULSADOR_PARADA) == 1);//sale del do while al precionar el boton de parada
+  }
+  pulsador_anterior = digitalRead (PULSADOR_PARADA);
 }
 ```
 Funcion del display donde es comandado a traves del swtich como se explico antes.
 
 ```c++
-void mostrar_numero_por_display ()// funcion que muestra el nro de piso por el display
+void mostrar_numero_por_display ()// Funcion que muestra el nro del piso por el display
 {  
   digitalWrite (A, LOW);
   digitalWrite (B, LOW);
@@ -73,7 +86,7 @@ void mostrar_numero_por_display ()// funcion que muestra el nro de piso por el d
   
   switch (nro_piso)
     {
-      case 0:
+    case 0:
       	digitalWrite (A, HIGH);
         digitalWrite (B, HIGH);
         digitalWrite (C, HIGH);
@@ -81,24 +94,66 @@ void mostrar_numero_por_display ()// funcion que muestra el nro de piso por el d
         digitalWrite (E, HIGH);
         digitalWrite (F, HIGH);
         break;
-      case 1:
+    case 1:
         digitalWrite (B, HIGH);
         digitalWrite (C, HIGH);
         break;
-      case 2:
+    case 2:
         digitalWrite (A, HIGH);
         digitalWrite (B, HIGH);
         digitalWrite (D, HIGH);
         digitalWrite (E, HIGH);
         digitalWrite (G, HIGH);
         break;
-      case 3:
+    case 3:
         digitalWrite (A, HIGH);
         digitalWrite (B, HIGH);
         digitalWrite (C, HIGH);
         digitalWrite (D, HIGH);
         digitalWrite (G, HIGH);
+    	break;
+    case 4:
+    	digitalWrite (B, HIGH);
+        digitalWrite (C, HIGH);
+        digitalWrite (F, HIGH);
+        digitalWrite (G, HIGH);
         break;
+    case 5:
+        digitalWrite (A, HIGH);
+        digitalWrite (C, HIGH);
+        digitalWrite (D, HIGH);
+        digitalWrite (F, HIGH);
+        digitalWrite (G, HIGH);
+    	break;
+    case 6:
+        digitalWrite (A, HIGH);
+        digitalWrite (C, HIGH);
+        digitalWrite (D, HIGH);
+    	digitalWrite (E, HIGH);
+        digitalWrite (F, HIGH);
+        digitalWrite (G, HIGH);
+    	break;
+    case 7:
+        digitalWrite (A, HIGH);
+        digitalWrite (B, HIGH);
+        digitalWrite (C, HIGH);
+    	break;
+    case 8:
+        digitalWrite (A, HIGH);
+    	digitalWrite (B, HIGH);
+        digitalWrite (C, HIGH);
+        digitalWrite (D, HIGH);
+    	digitalWrite (E, HIGH);
+        digitalWrite (F, HIGH);
+        digitalWrite (G, HIGH);
+    	break;
+    case 9:
+        digitalWrite (A, HIGH);
+        digitalWrite (B, HIGH);
+        digitalWrite (C, HIGH);
+        digitalWrite (F, HIGH);
+        digitalWrite (G, HIGH);
+    	break;
     }
 }
 
@@ -108,3 +163,5 @@ void mostrar_numero_por_display ()// funcion que muestra el nro de piso por el d
 * [Proyecto](https://www.tinkercad.com/things/bNp2QRHDYhh?sharecode=J8ogw9SX7kTXkO-vtW1mXZV4U9Q0fco6h8rYiuCzcc0)
 ## Link del video funcionando
 * [Video](https://youtu.be/UXNEi_hCEUc)
+
+
