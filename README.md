@@ -156,12 +156,15 @@ void mostrar_numero_por_display ()// Funcion que muestra el nro del piso por el 
     	break;
     }
 }
-
 ```
 ## Link del proyecto
 ---
 * [Proyecto](https://www.tinkercad.com/things/bNp2QRHDYhh?sharecode=J8ogw9SX7kTXkO-vtW1mXZV4U9Q0fco6h8rYiuCzcc0)
+
+## Link del GBD
+---
+* [GDB](https://onlinegdb.com/2kexYOks6)
+
 ## Link del video funcionando
+---
 * [Video](https://youtu.be/UXNEi_hCEUc)
-
-
